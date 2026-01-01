@@ -372,6 +372,10 @@
       <button class="checkin-btn" id="checkinBtn" onclick="checkIn()">
         🔥 Check in workout
       </button>
+      
+      <button class="logout-btn" style="margin-bottom:20px;" onclick="resetUser()">
+        🔄 Reset My Data
+      </button>
 
       <div class="leaderboard">
         <h3>🏅 Leaderboard</h3>
@@ -396,6 +400,22 @@
     let currentUser = null;
 
     // Utility functions
+    function resetUser() {
+      if (!currentUser) return;
+
+      const user = users[currentUser];
+
+      user.workoutDates = [];
+      user.currentStreak = 0;
+      user.longestStreak = 0;
+      user.lastCheckIn = null;
+
+      saveData();
+      updateDashboard();
+      renderLoginScreen();
+    }
+
+    
     function getToday() {
       const date = new Date();
       return date.toISOString().split('T')[0];
